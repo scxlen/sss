@@ -30,9 +30,11 @@
     4）特征库的训练
         我们将首先使用MNIST数据来训练模型，如果训练后模型的预测效果不好，我们将自己构造训练数据，如何训练数据在文档后面会介绍。"
 ![image](https://user-images.githubusercontent.com/106146337/169987354-6456bd90-7ace-46ac-bf7a-8d846bbd051f.png)
-        图1：需求流程图
+
+图1：需求流程图
 ![image](https://user-images.githubusercontent.com/106146337/169987447-c225558e-c854-4fc6-b79a-d09d50f1d03f.png)
-        图2：数据流程图
+
+图2：数据流程图
 
 #### 4. 系统非功能需求
     书写者随机在黑板上写一个数字，通过调用电脑摄像头实时检测所写数字并给出结果。
@@ -40,10 +42,12 @@
 #### 5. 需求分析模型
 ##### 5.1. 功能模型
 ![image](https://user-images.githubusercontent.com/106146337/169987730-73619a01-0c96-41c0-94a4-7dee4c11d43a.png)
-        图3：数据流图
+
+图3：数据流图
 ##### 5.2. 数据模型
 ![image](https://user-images.githubusercontent.com/106146337/169987945-81c496a8-b89b-44dc-805e-4ee0f39ba6ff.png)
-        图4：E-R图
+
+图4：E-R图
 ##### 5.3. 数据字典
 #### 6. 注意事项
     手写数字识别经典数据集：数据集选择的FishionMint数据集中的t10k，共含有一万张28*28的手写图片（二值图片）
