@@ -32,6 +32,7 @@
 ![image](https://user-images.githubusercontent.com/106146337/169987354-6456bd90-7ace-46ac-bf7a-8d846bbd051f.png)
 
 图1：需求流程图
+
 ![image](https://user-images.githubusercontent.com/106146337/169987447-c225558e-c854-4fc6-b79a-d09d50f1d03f.png)
 
 图2：数据流程图
