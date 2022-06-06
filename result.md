@@ -48,13 +48,11 @@
 *注：对每一个接口和模块进行详细描述。对接口，列出所有的函数，包括函数名、参数和返回类型，并用简短的文字描述它的功能。对模块，详细描述它所使用的数据结构和算法，可用教材中介绍的过程设计工具，如：程序流程图、PAD图、伪码等表示。*
 
 ### 3.1.predict接口详细设计
-resnet_block(in_channels, out_channels, num_residuals, first_block=False)
-
-参数 in_channels 决定了该残差网络模块输入图片来源数，输入的in_channel为2，意味着将从两张图片来源进行卷积；
-
-参数 out_channels 决定了该残差网络模块输出图片的通道数，若out_channel为2，即有两个卷积核,对应的输出图片为两个通道；
-参数 num_residuals 决定了该残差网络模块由几个残差块组成；
-参数 first_block 决定了该残差网络模块的第一层残差块是否要使用1*1的卷积层，如下图所示：
+resnet_block(in_channels, out_channels, num_residuals, first_block=False)&nbsp;
+参数 in_channels 决定了该残差网络模块输入图片来源数，输入的in_channel为2，意味着将从两张图片来源进行卷积；&nbsp;
+参数 out_channels 决定了该残差网络模块输出图片的通道数，若out_channel为2，即有两个卷积核,对应的输出图片为两个通道；&nbsp;
+参数 num_residuals 决定了该残差网络模块由几个残差块组成；&nbsp;
+参数 first_block 决定了该残差网络模块的第一层残差块是否要使用1*1的卷积层，如下图所示：&nbsp;
 ![BF1(6B3ZF(GF8G0CM42JL~6](https://user-images.githubusercontent.com/106146337/172203625-fe68dac4-98a5-4ac4-b472-63cb8db254cd.jpg)
 
 class Residual(nn.Module):
