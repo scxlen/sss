@@ -71,6 +71,7 @@ def __init__(self, in_channels, out_channels, use_1x1conv=False, stride=1):
 参数 stride 决定了该残差网络模块卷积层处理后的尺寸
 
 根据该残差代码的设计，在实例化该 class 时，依据传入参数（use_1x1conv）布尔值的不同，会实例化出两种模式：
+
 (1) 当 use_1x1conv = False 时：输入数据被直接叠加到第二个标准化层的输出.
 该模式下，经过第 L 层神经网络和残差叠加处理后，数据的尺寸不变，通道数也不变。
 
