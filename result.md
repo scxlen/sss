@@ -49,7 +49,9 @@
 
 ### 3.1.predict接口详细设计
 resnet_block(in_channels, out_channels, num_residuals, first_block=False)
+
 参数 in_channels 决定了该残差网络模块输入图片来源数，输入的in_channel为2，意味着将从两张图片来源进行卷积；
+
 参数 out_channels 决定了该残差网络模块输出图片的通道数，若out_channel为2，即有两个卷积核,对应的输出图片为两个通道；
 参数 num_residuals 决定了该残差网络模块由几个残差块组成；
 参数 first_block 决定了该残差网络模块的第一层残差块是否要使用1*1的卷积层，如下图所示：
