@@ -80,12 +80,60 @@ def __init__(self, in_channels, out_channels, use_1x1conv=False, stride=1):
 (2) 当 use_1x1conv = True 时：输入数据先被第三个卷积层（即1*1的卷积层）卷积，再叠加到第二个标准化层的输出
 
 def forward(self, X):
-### 3.2. 接口详细设计
+### 3.2. treatment接口详细设计
+def get_number(img):
+img_gray = cv.cvtColor(img, cv.COLOR_RGB2GRAY) 颜色空间转换函数
+img:要进行处理的图片
+cv.COLOR_RGB2GRAY：要进行的色彩转换方式
 
+img_gray_resize = cv.resize(img_gray, (600, 600))  图像缩放函数，这里把图像变成600*600的
+
+def get_roi(img_bw): 
+img_bw :预处理好的二值图
+img_bw_sg_bord = cv.copyMakeBorder(img_bw_sg, add_c, add_c, add_r, add_r, cv.BORDER_CONSTANT, value=[0, 0, 0])
+cv2.copyMakeBorder()用来给图片添加边框
+img_bw_sg：要处理的原图
+add_c, add_c, add_r, add_r：上下左右要扩展的像素数
+cv.BORDER_CONSTANT：固定值填充
 ### 3.3.图像预处理模块详细设计
+
+img_resize = cv.resize(img,(600,600))  resize成600*
+img_gray = cv.cvtColor(img_resize, cv.COLOR_RGB2GRAY) 灰度化
+ret, img_bw = cv.threshold(img_gray, 200, 255,cv.THRESH_BINARY) 对灰度图像进行阈值操作得到二值图像
+img_open = cv.dilate(img_bw,kernel,iterations=3)膨胀，针对某一像素点，以其为中心建立蒙版，蒙版中的最大值赋值给该像素点
+num_labels, labels, stats, centroids = cv.connectedComponentsWithStats(img_open, connectivity=8, ltype=None)剔除小连通域，img_open : 是要处理的图片，官方文档要求是8位单通道的图像。
+connectivity : 可以选择是4连通还是8连通，连通指的是上下左右，8连通指的是上下左右+左上、右上、右下、左下。这里选择8连通。
+num_labels : 返回值是连通区域的数量。
+labels : labels是一个与image一样大小的矩形（labels.shape = image.shape），其中每一个连通区域会有一个唯一标识，标识从0开始。
+stats ：stats会包含5个参数分别为x,y,h,w,s。分别对应每一个连通区域的外接矩形的起始坐标x,y；外接矩形的wide,height；s其实不是外接矩形的面积，实践证明是labels对应的连通区域的像素个数。
+centroids : 返回的是连通区域的质心。
+
+cv.rectangle(img_open, tuple(sta[0:2]), tuple(sta[0:2] + sta[2:4]), (0, 0, 255), thickness=-1)
+img_open：图像
+tuple(sta[0:2])：矩形的一个顶点
+tuple(sta[0:2] + sta[2:4])：矩形对角线上的另一个顶点
+thickness：组成矩形的线条的粗细程度
+![6BE1}J~`WG7ZW54V(X1)5SF](https://user-images.githubusercontent.com/106146337/172880671-05595ffc-7a71-4b14-b71b-5a308ac8e0a6.png)
+
+
 
 ### 3.4. 网络模块详细设计
 
+采用Resnet（残差网络），残差网络的优势在于：
+
+更易捕捉模型细微波动
+
+更快的收敛速度
+构建网络，ResNet模型
+
+def get_net():
+
+    net.add_module("resnet_block1", resnet_block(64, 64, 2, first_block=True))第一个残差网络模块，包含2个残差块
+    
+    net.add_module("resnet_block2", resnet_block(64, 128, 2))第二个残差网络模块，包含2个残差块 
+    
+    net.add_module("resnet_block3", resnet_block(128, 256, 2))第三个残差网络模块，包含2个残差块
+    
 ## 4. 数据设计
 
 *注：如果需要对数据永久存储，即需要存储到文件或者数据库中，则需要对文件格式或数据库格式进行描述。对数据库，可以用一张表格介绍每一个关系模式中字段的名称、含义和类型。*
